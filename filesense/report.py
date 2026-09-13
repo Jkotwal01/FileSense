@@ -10,7 +10,6 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
 from rich import box
-from rich.text import Text
 
 from filesense.duplicate import DuplicateGroup
 from filesense.metadata import FileMetadata

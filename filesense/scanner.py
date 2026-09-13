@@ -107,17 +107,23 @@ class FileScanner:
 
         for entry in entries:
             try:
-                # Resolve symlinks only when configured
-                if entry.is_symlink() and not self.follow_symlinks:
-                    logger.debug("Skipping symlink: %s", entry)
-                    continue
-
-                if entry.is_dir(follow_symlinks=self.follow_symlinks):
+                # Handle symlinks explicitly before calling is_dir/is_file
+                if entry.is_symlink():
+                    if not self.follow_symlinks:
+                        logger.debug("Skipping symlink: %s", entry)
+                        continue
+                    # follow_symlinks=True: resolve and check the target
+                    resolved = entry.resolve()
+                    if resolved.is_dir():
+                        result.directory_count += 1
+                        yield from self._walk(entry, result)
+                    elif resolved.is_file():
+                        yield entry
+                elif entry.is_dir():
                     result.directory_count += 1
                     yield from self._walk(entry, result)
-                elif entry.is_file(follow_symlinks=self.follow_symlinks):
+                elif entry.is_file():
                     yield entry
-
             except PermissionError:
                 result.add_error(f"Permission denied: {entry}")
             except OSError as exc:
