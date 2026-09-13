@@ -36,34 +36,108 @@ python -X utf8 -m pytest tests/test_storage.py -v
 
 ## CLI Commands
 
-> **Windows:** Always use `python -X utf8 main.py` to avoid encoding errors.
+> **Windows:** Always use `python -X utf8 main.py` to avoid encoding errors when displaying terminal UI graphics.
+
+### Understanding the Command Syntax
+- `<path>`: **Required** argument. The directory you want to scan (e.g., `.`, `./Downloads`, `"C:\My Files"`).
+- `[...]`: **Optional** flags. You do not type the brackets. These modify how the command runs.
+
+---
+
+### 1. `scan` — Discover and index files
+Scans a directory, finds duplicates, and saves everything to a local SQLite cache.
 
 ```bash
-# Scan a directory
 python -X utf8 main.py scan <path> [--workers N] [--follow-symlinks] [--verbose]
+```
+**Options:**
+- `--workers N` (or `-w N`): Set the number of concurrent hashing threads (default is 4). Use 8 for fast SSDs, or 1 to disable concurrency.
+- `--follow-symlinks`: By default, symbolic links are ignored. Add this flag to follow them.
+- `--verbose` (or `-v`): Prints detailed DEBUG logs to the terminal (e.g., showing exactly which files are being hashed).
 
-# Find duplicates
+**Example:**
+```bash
+python -X utf8 main.py scan "C:\Users\Name\Downloads" --workers 8 --verbose
+```
+
+---
+
+### 2. `duplicates` — View duplicate groups
+Displays exactly which files are duplicates of each other and how much space they waste.
+
+```bash
 python -X utf8 main.py duplicates <path> [--workers N]
+```
 
-# Storage breakdown by category and extension
+---
+
+### 3. `analyze` — Storage breakdown
+Shows how your storage is being used, grouped by file category (Images, Videos, Code) and extension (`.mp4`, `.pdf`).
+
+```bash
 python -X utf8 main.py analyze <path>
+```
 
-# Top N largest files
+---
+
+### 4. `largest` — Top space consumers
+Lists the biggest individual files in the directory.
+
+```bash
 python -X utf8 main.py largest <path> [--top N]
+```
+**Options:**
+- `--top N`: How many files to show (default is 10).
 
-# Full combined report
+**Example:**
+```bash
+python -X utf8 main.py largest . --top 20
+```
+
+---
+
+### 5. `report` — Full combined output
+Runs scan, duplicate detection, storage analysis, and largest files all in one massive report.
+
+```bash
 python -X utf8 main.py report <path> [--workers N]
+```
 
-# Benchmark naive vs multi-stage hashing
+---
+
+### 6. `benchmark` — Performance comparison
+Compares the speed of a naive full-hash approach vs FileSense's multi-stage pipeline.
+
+```bash
 python -X utf8 main.py benchmark <path> [--workers 1,2,4,8]
+```
+**Options:**
+- `--workers <comma-list>`: The thread configurations you want to test. Default is `1,2,4`.
 
-# Preview cleanup (safe — never deletes)
+**Example:**
+```bash
+python -X utf8 main.py benchmark ./data --workers 1,4,8,16
+```
+
+---
+
+### 7. `clean` — Safely remove duplicates
+Previews or performs actual deletion of duplicate files to recover space.
+
+```bash
+# Preview what WOULD be deleted (SAFE - Default behavior)
 python -X utf8 main.py clean <path> --dry-run
 
-# Actual cleanup (requires confirmation prompt)
+# Perform ACTUAL deletion (Requires typing 'y' at a prompt)
 python -X utf8 main.py clean <path> --no-dry-run
+```
 
-# SQLite index statistics
+---
+
+### 8. `index status` — Check database stats
+Shows how many files are currently cached in your local `~/.filesense/filesense.db` database.
+
+```bash
 python -X utf8 main.py index status
 ```
 
