@@ -119,8 +119,8 @@ class ReportGenerator:
             console.print(
                 f"[bold yellow]Group #{i}[/bold yellow]  "
                 f"[dim]{group.full_hash[:16]}...[/dim]  "
-                f"[cyan]{_human_size(group.file_size)}[/cyan] × {group.file_count} copies  "
-                f"→ [green]{_human_size(group.wasted_size)} recoverable[/green]"
+                f"[cyan]{_human_size(group.file_size)}[/cyan] x {group.file_count} copies  "
+                f"-> [green]{_human_size(group.wasted_size)} recoverable[/green]"
             )
             orig = group.original_candidate
             console.print(f"  [bold green]KEEP[/bold green]    {orig.path}")
@@ -197,7 +197,7 @@ class ReportGenerator:
                 f"This will NOT delete any files.\n"
                 f"Potential recovery: [green]{_human_size(total_savings)}[/green]",
                 border_style="yellow",
-                title="⚠ Dry Run",
+                title="[!] Dry Run",
             )
         )
 
