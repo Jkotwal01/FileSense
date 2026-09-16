@@ -179,5 +179,5 @@ FileSense/
 ```
 Files → Size Grouping → Partial Hash → Full SHA-256 → Duplicate Groups
 ```
-
-For a full technical breakdown see [`docs/INTERVIEW_GUIDE.md`](docs/INTERVIEW_GUIDE.md).
+Please do not try on C drives
+For a full technical breakdown, see [`docs/INTERVIEW_GUIDE.md`](docs/INTERVIEW_GUIDE.md).
