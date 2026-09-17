@@ -3,8 +3,6 @@
 A local CLI-based **file analysis and deduplication engine** built in Python 3.x.
 
 ---
-(docs/INTERVIEW_GUIDE.md).
----
 
 ## Requirements
 
