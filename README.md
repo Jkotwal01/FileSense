@@ -36,7 +36,7 @@ python -X utf8 -m pytest tests/test_storage.py -v
 
 ## CLI Commands
 
-> **Windows:** Always use `python -X utf8 main.py` to avoid encoding errors when displaying terminal UI graphics.
+> **Note:** Once installed, you can run `filesense` from anywhere on your computer.
 
 ### Understanding the Command Syntax
 - `<path>`: **Required** argument. The directory you want to scan (e.g., `.`, `./Downloads`, `"C:\My Files"`).
@@ -48,7 +48,7 @@ python -X utf8 -m pytest tests/test_storage.py -v
 Scans a directory, finds duplicates, and saves everything to a local SQLite cache.
 
 ```bash
-python -X utf8 main.py scan <path> [--workers N] [--follow-symlinks] [--verbose]
+filesense scan <path> [--workers N] [--follow-symlinks] [--verbose]
 ```
 **Options:**
 - `--workers N` (or `-w N`): Set the number of concurrent hashing threads (default is 4). Use 8 for fast SSDs, or 1 to disable concurrency.
@@ -57,7 +57,7 @@ python -X utf8 main.py scan <path> [--workers N] [--follow-symlinks] [--verbose]
 
 **Example:**
 ```bash
-python -X utf8 main.py scan "C:\Users\Name\Downloads" --workers 8 --verbose
+filesense scan "C:\Users\Name\Downloads" --workers 8 --verbose
 ```
 
 ---
@@ -66,7 +66,7 @@ python -X utf8 main.py scan "C:\Users\Name\Downloads" --workers 8 --verbose
 Displays exactly which files are duplicates of each other and how much space they waste.
 
 ```bash
-python -X utf8 main.py duplicates <path> [--workers N]
+filesense duplicates <path> [--workers N]
 ```
 
 ---
@@ -75,7 +75,7 @@ python -X utf8 main.py duplicates <path> [--workers N]
 Shows how your storage is being used, grouped by file category (Images, Videos, Code) and extension (`.mp4`, `.pdf`).
 
 ```bash
-python -X utf8 main.py analyze <path>
+filesense analyze <path>
 ```
 
 ---
@@ -84,14 +84,14 @@ python -X utf8 main.py analyze <path>
 Lists the biggest individual files in the directory.
 
 ```bash
-python -X utf8 main.py largest <path> [--top N]
+filesense largest <path> [--top N]
 ```
 **Options:**
 - `--top N`: How many files to show (default is 10).
 
 **Example:**
 ```bash
-python -X utf8 main.py largest . --top 20
+filesense largest . --top 20
 ```
 
 ---
@@ -100,7 +100,7 @@ python -X utf8 main.py largest . --top 20
 Runs scan, duplicate detection, storage analysis, and largest files all in one massive report.
 
 ```bash
-python -X utf8 main.py report <path> [--workers N]
+filesense report <path> [--workers N]
 ```
 
 ---
@@ -109,14 +109,14 @@ python -X utf8 main.py report <path> [--workers N]
 Compares the speed of a naive full-hash approach vs FileSense's multi-stage pipeline.
 
 ```bash
-python -X utf8 main.py benchmark <path> [--workers 1,2,4,8]
+filesense benchmark <path> [--workers 1,2,4,8]
 ```
 **Options:**
 - `--workers <comma-list>`: The thread configurations you want to test. Default is `1,2,4`.
 
 **Example:**
 ```bash
-python -X utf8 main.py benchmark ./data --workers 1,4,8,16
+filesense benchmark ./data --workers 1,4,8,16
 ```
 
 ---
@@ -126,10 +126,10 @@ Previews or performs actual deletion of duplicate files to recover space.
 
 ```bash
 # Preview what WOULD be deleted (SAFE - Default behavior)
-python -X utf8 main.py clean <path> --dry-run
+filesense clean <path> --dry-run
 
 # Perform ACTUAL deletion (Requires typing 'y' at a prompt)
-python -X utf8 main.py clean <path> --no-dry-run
+filesense clean <path> --no-dry-run
 ```
 
 ---
@@ -138,7 +138,7 @@ python -X utf8 main.py clean <path> --no-dry-run
 Shows how many files are currently cached in your local `~/.filesense/filesense.db` database.
 
 ```bash
-python -X utf8 main.py index status
+filesense index status
 ```
 
 ---
