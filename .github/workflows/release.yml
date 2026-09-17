@@ -1,0 +1,71 @@
+name: Build and Release
+on:
+  release:
+    types: [published]
+jobs:
+  # 1. Build Native Binaries for Non-Python Users (Windows, Mac, Linux)
+  build-binaries:
+    name: Build for ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: windows-latest
+            ext: .exe
+            target-name: filesense-windows-amd64.exe
+          - os: ubuntu-latest
+            ext: ''
+            target-name: filesense-linux-amd64
+          - os: macos-latest
+            ext: ''
+            target-name: filesense-macos-amd64
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies & PyInstaller
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyinstaller
+          pip install .
+      - name: Build standalone executable with PyInstaller
+        run: |
+          pyinstaller --onefile --name filesense main.py
+      - name: Rename executable for release
+        shell: bash
+        run: |
+          cd dist
+          mv filesense${{ matrix.ext }} ${{ matrix.target-name }}
+      - name: Upload Binary to GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/${{ matrix.target-name }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # 2. Automatically Publish Package to PyPI for Python Users
+  pypi-publish:
+    name: Publish to PyPI
+    needs: build-binaries
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/filesense
+    permissions:
+      id-token: write  # Required for secure tokenless publishing (Trusted Publishers)
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install build tool
+        run: pip install build
+      - name: Build wheel and source distribution
+        run: python -m build
+      - name: Publish package to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
