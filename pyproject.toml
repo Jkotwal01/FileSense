@@ -16,3 +16,6 @@ dependencies = [
 
 [project.scripts]
 filesense = "filesense.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["filesense"]
