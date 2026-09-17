@@ -53,7 +53,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: pypi
-      url: https://pypi.org/p/filesense
+      url: https://pypi.org/p/filesense-cli
     permissions:
       id-token: write  # Required for secure tokenless publishing (Trusted Publishers)
     steps:

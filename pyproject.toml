@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "filesense"
+name = "filesense-cli"
 version = "0.1.0"
 description = "A local CLI-based file analysis and deduplication engine"
 readme = "README.md"
