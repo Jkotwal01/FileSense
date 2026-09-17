@@ -7,6 +7,8 @@ jobs:
   build-binaries:
     name: Build for ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
+    permissions:
+      contents: write   # Required to upload assets to GitHub Releases
     strategy:
       matrix:
         include:
