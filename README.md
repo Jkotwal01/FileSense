@@ -3,6 +3,8 @@
 A local CLI-based **file analysis and deduplication engine** built in Python 3.x.
 
 ---
+(docs/INTERVIEW_GUIDE.md).
+---
 
 ## Requirements
 
@@ -180,4 +182,3 @@ FileSense/
 Files → Size Grouping → Partial Hash → Full SHA-256 → Duplicate Groups
 ```
 Please do not try on C drives
-For a full technical breakdown, see [`docs/INTERVIEW_GUIDE.md`](docs/INTERVIEW_GUIDE.md).
