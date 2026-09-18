@@ -10,7 +10,7 @@ Scan any directory, instantly find duplicate files, visualize storage usage, and
 [![Python](https://img.shields.io/badge/Python-3.12%2B-blue?style=flat-square)](https://www.python.org/)
 [![License](https://img.shields.io/github/license/Jkotwal01/FileSense?style=flat-square)](LICENSE)
 [![Tests](https://img.shields.io/badge/tests-55%20passing-brightgreen?style=flat-square)](#testing)
-[![PyPI Downloads](https://static.pepy.tech/personalized-badge/filesense-cli?period=total&units=INTERNATIONAL_SYSTEM&left_color=BLACK&right_color=GREEN&left_text=downloads)](https://pepy.tech/projects/filesense-cli)
+[![PyPI Downloads](https://static.pepy.tech/personalized-badge/filesense-cli?period=total&units=INTERNATIONAL_SYSTEM&left_color=GREY&right_color=BLUE&left_text=downloads)](https://pepy.tech/projects/filesense-cli)
 
 </div>
 
