@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "filesense-cli"
-version = "0.1.5"
+version = "0.1.6"
 description = "A local CLI-based file analysis and deduplication engine"
 readme = "README.md"
 requires-python = ">=3.12"

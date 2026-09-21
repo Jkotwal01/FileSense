@@ -32,6 +32,29 @@ from filesense.storage import StorageAnalyzer, _human_size
 app = typer.Typer(
     name="filesense",
     help="FileSense — Local File Analysis & Deduplication Engine",
+    epilog="""
+[bold underline]Quick Start Examples:[/bold underline]
+
+• [green]filesense scan "C:\\Users\\Name\\Downloads"[/green]
+  Index all files in Downloads
+
+• [green]filesense scan "C:\\Users\\Name\\Downloads" --workers 8 --verbose[/green]
+  Scan with 8 parallel threads (fast for SSDs) and show detailed logs
+
+• [green]filesense duplicates .[/green]
+  Find duplicates in current folder
+
+• [green]filesense analyze ./projects[/green]
+  Show storage breakdown by file type
+
+• [green]filesense largest "C:\\Data" --top 20[/green]
+  Show the 20 largest files
+
+• [green]filesense clean . --dry-run[/green]
+  Preview what duplicates can be safely deleted
+
+[dim]Tip: You can use --help on any command to see its specific options (e.g., filesense scan --help).[/dim]
+""",
     add_completion=False,
     rich_markup_mode="rich",
 )
